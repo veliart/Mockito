@@ -39,7 +39,6 @@ public class DepartmentServiceImplTest {
 
 	@Test
 	public void shouldCorrectlyFindEmployeesByDepartmentId() {
-		// given
 		int departmentId = 1;
 		List<Employee> expectedEmployees = new ArrayList<>() {{
 			add(employees.get(0));
@@ -54,50 +53,34 @@ public class DepartmentServiceImplTest {
 
 		when(employeeService.getAllEmployees()).thenReturn(employeeMap);
 
-		// when
 		List<Employee> actualEmployees = departmentService.getEmployees(departmentId);
 
-		// then
 		Assertions.assertEquals(expectedEmployees, actualEmployees);
 	}
 
 	@Test
 	public void shouldCorrectlyCalculateSum() {
-		// given
 		int departmentId = 1;
 		int expectedSum = 600_000;
-
 		Map<String, Employee> employeeMap = new HashMap<>();
 		for (Employee employee : employees) {
 			employeeMap.put(employee.getFirstName() + employee.getLastName(), employee);
 		}
-
 		when(employeeService.getAllEmployees()).thenReturn(employeeMap);
-
-		// when
 		Integer salarySum = departmentService.getSalarySum(departmentId);
-
-		// then
 		Assertions.assertEquals(expectedSum, salarySum);
 	}
 
 	@Test
 	public void shouldReturnNullWhenThereAreNoEmployeesInDepartment() {
-		// given
 		int departmentId = 1;
-
 		when(employeeService.getAllEmployees()).thenReturn(Collections.emptyMap());
-
-		// when
 		Employee employee = departmentService.getEmployeeWithMinSalary(departmentId);
-
-		// then
 		Assertions.assertNull(employee);
 	}
 
 	@Test
 	public void shouldCorrectlyFindMinSalary() {
-		// given
 		int departmentId = 1;
 		Employee expectedEmployee = employees.get(0);
 
@@ -107,17 +90,12 @@ public class DepartmentServiceImplTest {
 		}
 
 		when(employeeService.getAllEmployees()).thenReturn(employeeMap);
-
-		// when
 		Employee employee = departmentService.getEmployeeWithMinSalary(departmentId);
-
-		// then
 		Assertions.assertEquals(expectedEmployee, employee);
 	}
 
 	@Test
 	public void shouldCorrectlyFindMaxSalary() {
-		// given
 		int departmentId = 1;
 		Employee expectedEmployee = employees.get(2);
 
@@ -127,34 +105,24 @@ public class DepartmentServiceImplTest {
 		}
 
 		when(employeeService.getAllEmployees()).thenReturn(employeeMap);
-
-		// when
 		Employee employee = departmentService.getEmployeeWithMaxSalary(departmentId);
-
-		// then
 		Assertions.assertEquals(expectedEmployee, employee);
 	}
 
 	@Test
 	public void shouldCorrectlyGroupEmployeesByDepartmentId() {
-		// given
 		Map<String, Employee> employeeMap = new HashMap<>();
 		for (Employee employee : employees) {
 			employeeMap.put(employee.getFirstName() + employee.getLastName(), employee);
 		}
-
 		when(employeeService.getAllEmployees()).thenReturn(employeeMap);
-
 		Map<Integer, List<Employee>> expectedMap = new HashMap<>() {{
 			put(1, List.of(employees.get(0), employees.get(1), employees.get(2)));
 			put(2, List.of(employees.get(3), employees.get(4)));
 			put(3, List.of(employees.get(5)));
 		}};
-
-		// when
 		Map<Integer, List<Employee>> actualMap = departmentService.getGroupedByDepartmentEmployees();
 
-		// then
 		Assertions.assertEquals(expectedMap, actualMap);
 	}
 }

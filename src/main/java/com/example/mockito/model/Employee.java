@@ -3,12 +3,14 @@ package com.example.mockito.model;
 import java.util.Objects;
 
 public class Employee {
+
 	private final String firstName;
 	private final String lastName;
-	private final int salary;
-	private final int department;
 
-	public Employee(String firstName, String lastName, int salary, int department) {
+	private final Integer salary;
+	private final Integer department;
+
+	public Employee(String firstName, String lastName, Integer salary, Integer department) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.salary = salary;
@@ -18,16 +20,16 @@ public class Employee {
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
-	public String getFullName() {
-		return firstName + lastName;
-	}
-	public int getSalary() {
+
+	public Integer getSalary() {
 		return salary;
 	}
-	public int getDepartment() {
+
+	public Integer getDepartment() {
 		return department;
 	}
 
@@ -36,12 +38,12 @@ public class Employee {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Employee employee = (Employee) o;
-		return salary == employee.salary && department == employee.department && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+		return Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getSalary(), employee.getSalary()) && Objects.equals(getDepartment(), employee.getDepartment());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, lastName, salary, department);
+		return Objects.hash(getFirstName(), getLastName(), getSalary(), getDepartment());
 	}
 
 	@Override
